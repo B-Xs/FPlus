@@ -1,10 +1,10 @@
 getgenv().esp = {
     MasterSwitch = false,
     BoxEnabled = false,
-    BoxColor = Color3.fromRGB(255, 255, 255),
+    BoxColor = Color3.fromRGB(247, 36, 117),
     BoxThickness = 1,
-    NameColor = Color3.fromRGB(255, 0, 0),
-    TracerColor = Color3.fromRGB(0, 255, 0),
+    NameColor = Color3.fromRGB(247, 36, 117),
+    TracerColor = Color3.fromRGB(247, 36, 117),
     CharacterSize = Vector3.new(4, 5.75, 1.5),
     BoxStaticXFactor = 1.3,
     BoxStaticYFactor = 2.1,
