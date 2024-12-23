@@ -15,9 +15,8 @@ getgenv().esp = {
     TracerEnabled = false,
     NameEnabled = false
 }
-
 local a = workspace.CurrentCamera
-local b = game:GetService('RunService')
+local b = game:GetService("RunService")
 local c = {}
 local d = a.WorldToViewportPoint
 
@@ -28,13 +27,13 @@ end
 function cframe_to_viewport(f)
     local position, g = d(a, f.Position)
     local h = position.Z > 0
-    if not h then g = false end
+    if not h then
+        g = false
+    end
     return Vector2.new(position.X, position.Y), g
 end
-
 local i = {}
 i.__index = i
-
 function i:New(j)
     local self = setmetatable({}, i)
     self.player = j
@@ -55,7 +54,7 @@ function i:Update()
     local m = l and l:FindFirstChild("HumanoidRootPart")
     if not m or not l.Parent then
         self:HideBox()
-        return
+     return
     end
     local n = (a.CFrame.p - m.Position).magnitude
     if n > esp.MaxDistance then
@@ -74,7 +73,7 @@ function i:Update()
     if esp.NameEnabled then
         self:DrawName(p, o)
     else
-        self.nameDrawing.Visible = false -- Ensure the name goes invisible when esp.NameEnabled is false
+        self.nameDrawing.Visible = false
     end
 end
 
@@ -83,7 +82,8 @@ function i:GetBoxSize(f)
         local q = esp.CharacterSize
         if esp.UseBoundingBox then
             _, q = self.player.Character:GetBoundingBox()
-        end
+ end
+
         local r = cframe_to_viewport(f * CFrame.new(q.X, 0, 0))
         local s = cframe_to_viewport(f * CFrame.new(0, q.Y, 0))
         local t = math.abs(r.X - position.X)
@@ -98,7 +98,11 @@ end
 
 function i:DrawBox(p, o)
     local w = o.X / 3
+
+
+
     self.boxDrawings[1].From = p
+
     self.boxDrawings[1].To = p + Vector2.new(w, 0)
     self.boxDrawings[1].Color = esp.BoxColor
     self.boxDrawings[1].Thickness = esp.BoxThickness
@@ -148,13 +152,13 @@ function i:DrawName(p, o)
     self.nameDrawing.Position = A
     self.nameDrawing.Text = self.player.Name
     self.nameDrawing.Color = esp.NameColor
-    
-    -- Always update the position, but control visibility with esp.NameEnabled
+
+
     if esp.NameEnabled then
         self.nameDrawing.Visible = true
     else
         self.nameDrawing.Visible = false
-        self.nameDrawing.Position = Vector2.new(0, 0)  -- Reset position when disabling
+        self.nameDrawing.Position = Vector2.new(0, 0) 
     end
 end
 
@@ -174,8 +178,8 @@ function i:HideBox()
     for _, B in pairs(self.boxDrawings) do
         B.Visible = false
     end
-  
-    self.nameDrawing.Visible = false -- Explicitly hide the name drawing when hiding the box
+
+    self.nameDrawing.Visible = false 
     self.tracer.Visible = false
 end
 
@@ -198,19 +202,25 @@ local function C()
     end
 end
 
-game.Players.PlayerAdded:Connect(function(E)
-    E.CharacterAdded:Connect(function(l)
-        if not c[E] then
-            c[E] = i:New(E)
-        end
-    end)
-end)
-
-game.Players.PlayerRemoving:Connect(function(E)
-    if c[E] then
-        c[E]:HideBox()
-        c[E] = nil
+game.Players.PlayerAdded:Connect(
+    function(E)
+        E.CharacterAdded:Connect(
+            function(l)
+                if not c[E] then
+                    c[E] = i:New(E)
+                end
+            end
+        )
     end
-end)
+)
+
+game.Players.PlayerRemoving:Connect(
+    function(E)
+        if c[E] then
+            c[E]:HideBox()
+            c[E] = nil
+        end
+    end
+)
 
 b.RenderStepped:Connect(C)
