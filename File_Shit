@@ -1,3 +1,4 @@
 getgenv().MiscTheme = Color3.fromRGB(0, 128, 255)
 getgenv().BackgroundTheme = Color3.fromRGB(27, 28, 43)
 getgenv().TabContentTheme = Color3.fromRGB(48, 50, 76)
+getgenv().Bread = Color3.fromRGB(0, 128, 255)
