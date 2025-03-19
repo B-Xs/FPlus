@@ -1,0 +1,3 @@
+local p = false
+
+if p == true then game:Players:Kick("Ringo is down right now check the discord for more news") end 
